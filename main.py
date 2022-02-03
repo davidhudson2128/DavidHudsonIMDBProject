@@ -1,6 +1,6 @@
 import requests
-import json
-import pprint
+#import json
+#import pprint
 
 
 def get_top_250_shows(api_key):
