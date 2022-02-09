@@ -1,8 +1,10 @@
 import requests
-#import json
-#import pprint
 
 
+# import json
+# import pprint
+
+# sample comment to test workflow
 def get_top_250_shows(api_key):
     top_250_shows_request = requests.get(f"https://imdb-api.com/en/API/Top250TVs/{api_key}")
     top_250_shows_json = top_250_shows_request.json()
@@ -97,7 +99,6 @@ def write_user_ratings_data_to_file(file_name: str, shows_data, api_key):
 
 
 if __name__ == '__main__':
-
     with open("secret_api_key.txt", "r") as secret_file:
         api_key = secret_file.read()
 
