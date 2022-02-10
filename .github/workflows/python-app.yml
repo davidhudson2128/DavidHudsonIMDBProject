@@ -22,9 +22,9 @@ jobs:
         python-version: "3.9.10"
     - name: Build Secrets
       env:
-        IMDB_SECRET_KEY: ${{ secrets.IMDB_SECRET_KEY }}
+        API_KEY: ${{ secrets.api_key }}
       run: |
-        echo 'IMDB_SECRET_KEY = "'$IMDB_SECRET_KEY'"' >> secret_api_key.txt
+        echo 'api_key = "'$API_KEY'"' >> secrets.py
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
