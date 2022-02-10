@@ -24,7 +24,7 @@ jobs:
       env:
         IMDB_SECRET_KEY: ${{ secrets.IMDB_SECRET_KEY }}
       run: |
-        echo 'api_key = "'IMDB_SECRET_KEY'"' >> secrets.py
+        echo 'api_key = "'IMDB_SECRET_KEY'"' >> secret_api_key.txt
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
