@@ -1,6 +1,7 @@
 # import requests
 import json
 # import pprint
+import secrets
 
 
 # sample comment to test workflow
@@ -114,6 +115,9 @@ def write_user_ratings_data_to_file(file_name: str, shows_data, imdb_api_key):
 
 
 if __name__ == '__main__':
+
+
+    print(secrets)
 
     with open("secret_api_key.txt", "r") as secret_file:
         api_key = secret_file.read()
