@@ -40,7 +40,7 @@ def write_user_ratings_data_to_file(file_name: str, shows_data, imdb_api_key):
 
     # wheel_of_time_request = requests.get(f'https://imdb-api.com/en/API/SearchTitle/{imdb_api_key}/wheel of time')
     # show_wheel_of_time_id = wheel_of_time_request.json().get('results')[0].get('id')
-    show_wheel_of_time_id = 'tt0331080'
+    # show_wheel_of_time_id = 'tt0331080'
 
     # ratings_data_show_1 = requests.get(f"https://imdb-api.com/en/API/UserRatings/{imdb_api_key}/{show_1_id}").json()
     # ratings_data_show_50 = requests.get(f"https://imdb-api.com/en/API/UserRatings/{imdb_api_key}/{show_50_id}").json()
