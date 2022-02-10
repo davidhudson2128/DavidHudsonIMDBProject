@@ -1,9 +1,9 @@
+<<<<<<< Updated upstream
 # import pytest
-
-import main
-
-with open("../secret_api_key.txt", "r") as secret_file:
-    api_key = secret_file.read()
+=======
+# import main
+import pytest
+>>>>>>> Stashed changes
 
 
 @pytest.fixture
@@ -12,6 +12,7 @@ def add():
 
 
 def test_example():
+<<<<<<< Updated upstream
     assert 4 == add(2+2)
 
 
@@ -27,3 +28,6 @@ def test_top_250_data():
 
 if __name__ == '__main__':
     print(test_top_250_data())
+=======
+    assert 4 == 4
+>>>>>>> Stashed changes

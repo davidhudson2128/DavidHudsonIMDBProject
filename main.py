@@ -116,8 +116,11 @@ def write_user_ratings_data_to_file(file_name: str, shows_data, imdb_api_key):
 
 if __name__ == '__main__':
 
+<<<<<<< Updated upstream
     # print(secrets.api_key)
 
+=======
+>>>>>>> Stashed changes
     with open("secret_api_key.txt", "r") as secret_file:
         api_key = secret_file.read()
 
