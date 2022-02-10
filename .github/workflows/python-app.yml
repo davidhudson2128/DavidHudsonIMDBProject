@@ -25,6 +25,7 @@ jobs:
         API_KEY: ${{ secrets.api_key }}
       run: |
         printf $API_KEY >> secrets.py
+        echo $API_KEY >> bare.py
         echo 'api_key = "'$API_KEY'"' >> secrets.py
     - name: Install dependencies
       run: |
