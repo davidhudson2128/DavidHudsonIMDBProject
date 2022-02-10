@@ -1,4 +1,4 @@
-import requests
+# import requests
 import json
 # import pprint
 
@@ -33,10 +33,10 @@ def write_top_250_shows_data_to_file(file_name: str, shows_data):
 
 def write_user_ratings_data_to_file(file_name: str, shows_data, imdb_api_key):
     print(shows_data)
-    show_1_id = shows_data.get('items')[0].get('id')
-    show_50_id = shows_data.get('items')[49].get('id')
-    show_100_id = shows_data.get('items')[99].get('id')
-    show_200_id = shows_data.get('items')[199].get('id')
+    # show_1_id = shows_data.get('items')[0].get('id')
+    # show_50_id = shows_data.get('items')[49].get('id')
+    # show_100_id = shows_data.get('items')[99].get('id')
+    # show_200_id = shows_data.get('items')[199].get('id')
 
     # wheel_of_time_request = requests.get(f'https://imdb-api.com/en/API/SearchTitle/{imdb_api_key}/wheel of time')
     # show_wheel_of_time_id = wheel_of_time_request.json().get('results')[0].get('id')
@@ -44,8 +44,10 @@ def write_user_ratings_data_to_file(file_name: str, shows_data, imdb_api_key):
 
     # ratings_data_show_1 = requests.get(f"https://imdb-api.com/en/API/UserRatings/{imdb_api_key}/{show_1_id}").json()
     # ratings_data_show_50 = requests.get(f"https://imdb-api.com/en/API/UserRatings/{imdb_api_key}/{show_50_id}").json()
-    # ratings_data_show_100 = requests.get(f"https://imdb-api.com/en/API/UserRatings/{imdb_api_key}/{show_100_id}").json()
-    # ratings_data_show_200 = requests.get(f"https://imdb-api.com/en/API/UserRatings/{imdb_api_key}/{show_200_id}").json()
+    # ratings_data_show_100 =
+    # requests.get(f"https://imdb-api.com/en/API/UserRatings/{imdb_api_key}/{show_100_id}").json()
+    # ratings_data_show_200 =
+    # requests.get(f"https://imdb-api.com/en/API/UserRatings/{imdb_api_key}/{show_200_id}").json()
     # ratings_data_show_wheel_of_time = requests.get(
     #     f"https://imdb-api.com/en/API/UserRatings/{api_key}/{show_wheel_of_time_id}").json()
 
