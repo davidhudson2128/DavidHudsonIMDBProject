@@ -5,6 +5,7 @@ import pytest
 with open("secret_api_key.txt", "r") as secret_file:
     api_key = secret_file.read()
 
+
 @pytest.fixture
 def add():
     return 1+1
