@@ -1,18 +1,19 @@
 import requests
-#import json
+import json
 #import pprint
+import databases
 
 
 def get_top_250_shows(api_key):
-    top_250_shows_request = requests.get(f"https://imdb-api.com/en/API/Top250TVs/{api_key}")
-    top_250_shows_json = top_250_shows_request.json()
+    # top_250_shows_request = requests.get(f"https://imdb-api.com/en/API/Top250TVs/{api_key}")
+    # top_250_shows_json = top_250_shows_request.json()
 
     # store data to file to avoid API requests
     # with open("top_250_shows.json", "w") as file:
     #     file.write(json.dumps(top_250_shows_json))
     # read data from file
-    # with open("top_250_shows.json", "r") as file:
-    #     top_250_shows_json = json.load(file)
+    with open("top_250_shows.json", "r") as file:
+        top_250_shows_json = json.load(file)
 
     return top_250_shows_json
 
@@ -34,18 +35,45 @@ def write_user_ratings_data_to_file(file_name: str, shows_data, api_key):
     show_1_id = shows_data.get('items')[0].get('id')
     show_50_id = shows_data.get('items')[49].get('id')
     show_100_id = shows_data.get('items')[99].get('id')
-    show_200_id = shows_data.get('items')[199].get('id')
+    show_200_id = shows_data.get('items')[200].get('id')
 
-    wheel_of_time_request = requests.get(f'https://imdb-api.com/en/API/SearchTitle/{api_key}/wheel of time')
-    show_wheel_of_time_id = wheel_of_time_request.json().get('results')[0].get('id')
-    # show_wheel_of_time_id = 'tt0331080'
+    # wheel_of_time_request = requests.get(f'https://imdb-api.com/en/API/SearchTitle/{api_key}/wheel of time')
+    # show_wheel_of_time_id = wheel_of_time_request.json().get('results')[0].get('id')
+    show_wheel_of_time_id = 'tt0331080'
 
-    ratings_data_show_1 = requests.get(f"https://imdb-api.com/en/API/UserRatings/{api_key}/{show_1_id}").json()
-    ratings_data_show_50 = requests.get(f"https://imdb-api.com/en/API/UserRatings/{api_key}/{show_50_id}").json()
-    ratings_data_show_100 = requests.get(f"https://imdb-api.com/en/API/UserRatings/{api_key}/{show_100_id}").json()
-    ratings_data_show_200 = requests.get(f"https://imdb-api.com/en/API/UserRatings/{api_key}/{show_200_id}").json()
-    ratings_data_show_wheel_of_time = requests.get(
-        f"https://imdb-api.com/en/API/UserRatings/{api_key}/{show_wheel_of_time_id}").json()
+    # API REQUESTS
+    # ratings_data_show_1 = requests.get(f"https://imdb-api.com/en/API/UserRatings/{api_key}/{show_1_id}").json()
+    # ratings_data_show_50 = requests.get(f"https://imdb-api.com/en/API/UserRatings/{api_key}/{show_50_id}").json()
+    # ratings_data_show_100 = requests.get(f"https://imdb-api.com/en/API/UserRatings/{api_key}/{show_100_id}").json()
+    # ratings_data_show_200 = requests.get(f"https://imdb-api.com/en/API/UserRatings/{api_key}/{show_200_id}").json()
+    # ratings_data_show_wheel_of_time = requests.get(
+    #     f"https://imdb-api.com/en/API/UserRatings/{api_key}/{show_wheel_of_time_id}").json()
+
+
+    # WRITE API DATA TO JSON FILES
+    # with open('ratings_data_show_1.json', 'w') as file:
+    #     file.write(json.dumps(ratings_data_show_1))
+    # with open('ratings_data_show_50.json', 'w') as file:
+    #     file.write(json.dumps(ratings_data_show_50))
+    # with open('ratings_data_show_100.json', 'w') as file:
+    #     file.write(json.dumps(ratings_data_show_100))
+    # with open('ratings_data_show_200.json', 'w') as file:
+    #     file.write(json.dumps(ratings_data_show_200))
+    # with open('ratings_data_wheel_of_time.json', 'w') as file:
+    #     file.write(json.dumps(ratings_data_show_wheel_of_time))
+
+    # READ API DATA FROM JSON FILES
+    with open('ratings_data_show_1.json', 'r') as file:
+        ratings_data_show_1 = json.load(file)
+    with open('ratings_data_show_50.json', 'r') as file:
+        ratings_data_show_50 = json.load(file)
+    with open('ratings_data_show_100.json', 'r') as file:
+        ratings_data_show_100 = json.load(file)
+    with open('ratings_data_show_200.json', 'r') as file:
+        ratings_data_show_200 = json.load(file)
+    with open('ratings_data_wheel_of_time.json', 'r') as file:
+        ratings_data_show_wheel_of_time = json.load(file)
+
 
     # Writing to file
     with open(file_name, "w") as output:
@@ -96,6 +124,11 @@ def write_user_ratings_data_to_file(file_name: str, shows_data, api_key):
         output.write("\n\n")
 
 
+    # Return list of user ratings data
+    ratings_data_for_specific_shows = [ratings_data_show_1, ratings_data_show_50, ratings_data_show_100, ratings_data_show_200, ratings_data_show_wheel_of_time]
+    return ratings_data_for_specific_shows
+
+
 if __name__ == '__main__':
 
     with open("secret_api_key.txt", "r") as secret_file:
@@ -104,5 +137,9 @@ if __name__ == '__main__':
     top_250_shows_data = get_top_250_shows(api_key)
     output_file = "output.txt"
 
-    write_user_ratings_data_to_file(output_file, top_250_shows_data, api_key)
+    user_ratings_data = write_user_ratings_data_to_file(output_file, top_250_shows_data, api_key)
     write_top_250_shows_data_to_file(output_file, top_250_shows_data)
+
+    databases.main(top_250_shows_data, user_ratings_data)
+
+
