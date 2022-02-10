@@ -36,31 +36,31 @@ def create_db_columns_top250(curser):
 def create_db_columns_user_ratings(curser):
     # try:
     curser.execute('''CREATE TABLE "UserRatings" (
-	"imdb_id"	INTEGER,
-	"total_rating"	INTEGER,
-	"total_rating_votes"    INTEGER,
-	"rating_percent_10"	INTEGER,
-	"rating_votes_10"	INTEGER,
-	"rating_percent_9"	INTEGER,
-	"rating_votes_9"	INTEGER,
-	"rating_percent_8"	INTEGER,
-	"rating_votes_8"	INTEGER,
-	"rating_percent_7"	INTEGER,
-	"rating_votes_7"	INTEGER,
-	"rating_percent_6"	INTEGER,
-	"rating_votes_6"	INTEGER,
-	"rating_percent_5"	INTEGER,
-	"rating_votes_5"	INTEGER,
-	"rating_percent_4"	INTEGER,
-	"rating_votes_4"	INTEGER,
-	"rating_percent_3"	INTEGER,
-	"rating_votes_3"	INTEGER,
-	"rating_percent_2"	INTEGER,
-	"rating_votes_2"	INTEGER,
-	"rating_percent_1"	INTEGER,
-	"rating_votes_1"	INTEGER,
-	FOREIGN KEY("imdb_id") REFERENCES "Top250Data"("id")
-);''')
+        "imdb_id"	INTEGER,
+        "total_rating"	INTEGER,
+        "total_rating_votes"    INTEGER,
+        "rating_percent_10"	INTEGER,
+        "rating_votes_10"	INTEGER,
+        "rating_percent_9"	INTEGER,
+        "rating_votes_9"	INTEGER,
+        "rating_percent_8"	INTEGER,
+        "rating_votes_8"	INTEGER,
+        "rating_percent_7"	INTEGER,
+        "rating_votes_7"	INTEGER,
+        "rating_percent_6"	INTEGER,
+        "rating_votes_6"	INTEGER,
+        "rating_percent_5"	INTEGER,
+        "rating_votes_5"	INTEGER,
+        "rating_percent_4"	INTEGER,
+        "rating_votes_4"	INTEGER,
+        "rating_percent_3"	INTEGER,
+        "rating_votes_3"	INTEGER,
+        "rating_percent_2"	INTEGER,
+        "rating_votes_2"	INTEGER,
+        "rating_percent_1"	INTEGER,
+        "rating_votes_1"	INTEGER,
+        FOREIGN KEY("imdb_id") REFERENCES "Top250Data"("id")
+    );''')
     # Database already created
     # except sqlite3.OperationalError as e:
     #     pass
@@ -82,7 +82,6 @@ def write_data_to_db_top250(curser, top_250_shows_data):
         api_key = secret_file.read()
     # wheel_of_time_data = requests.get(f'https://imdb-api.com/en/API/Report/{api_key}/tt7462410').json()
 
-
     # with open('wheel_of_time_data.json', 'w') as file:
     #     file.write(json.dumps(wheel_of_time_data))
     # with open('wheel_of_time_data.json', 'r') as file:
@@ -93,7 +92,12 @@ def write_data_to_db_top250(curser, top_250_shows_data):
     # Add Wheel of Time to db
 #     curser.execute(f'''INSERT INTO Top250Data(id, title, full_title,
 #                 year, crew, imdb_rating, imdb_rating_count)
-#                  VALUES ('{top_250_shows_data.get('items')[show_index].get('id')}', '{top_250_shows_data.get('items')[show_index].get('title')}', '{top_250_shows_data.get('items')[show_index].get('fullTitle')}', '{top_250_shows_data.get('items')[show_index].get('year')}', '{top_250_shows_data.get('items')[show_index].get('crew')}', '{top_250_shows_data.get('items')[show_index].get('imDbRating')}', '{top_250_shows_data.get('items')[show_index].get('imDbRatingCount')}')''')
+#                  VALUES ('{top_250_shows_data.get('items')[show_index].get('id')}', '{top_250_shows_data.get('items')
+#                  [show_index].get('title')}', '{top_250_shows_data.get('items')[show_index].get('fullTitle')}',
+#                  '{top_250_shows_data.get('items')[show_index].get('year')}',
+#                  '{top_250_shows_data.get('items')[show_index].get('crew')}',
+#                  '{top_250_shows_data.get('items')[show_index].get('imDbRating')}',
+#                  '{top_250_shows_data.get('items')[show_index].get('imDbRatingCount')}')''')
 # )
 
     # Primary key not unique
@@ -101,9 +105,7 @@ def write_data_to_db_top250(curser, top_250_shows_data):
     #     print("b")
 
 
-
 def write_data_to_db_user_ratings(cursor, ratings_data):
-     # pass
 
     print(ratings_data)
     for show_data in ratings_data:
@@ -125,15 +127,6 @@ def write_data_to_db_user_ratings(cursor, ratings_data):
                          '{show_data.get('ratings')[7].get('votes')}', '{show_data.get('ratings')[8].get('percent')}',
                          '{show_data.get('ratings')[8].get('votes')}', '{show_data.get('ratings')[9].get('percent')}',
                          '{show_data.get('ratings')[9].get('votes')}')''')
-
-        # cursor.execute(f'''INSERT INTO UserRatings(imdb_id, total_rating, total_rating_votes,
-        #                       rating_percent_10, rating_votes_10, rating_percent_9, rating_votes_9, rating_percent_8,
-        #                       rating_votes_8, rating_percent_7, rating_votes_7, rating_percent_6, rating_votes_6,
-        #                       rating_percent_5, rating_votes_5, rating_percent_4, rating_votes_4, rating_percent_3,
-        #                       rating_votes_3, rating_percent_2, rating_votes_2, rating_percent_1, rating_votes_1) VALUES ()
-        #     ''')
-
-
 
 
 def main(top_250_shows_data, user_ratings_data):
