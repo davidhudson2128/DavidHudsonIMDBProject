@@ -1,4 +1,4 @@
-# import pytest
+import pytest
 
 import main
 
@@ -19,11 +19,6 @@ def test_top_250_data():
     top_250_data = main.get_top_250_shows(api_key)
     top_250_data_size = len(top_250_data.get('items'))
     assert top_250_data_size == 250
-
-
-
-
-
 
 if __name__ == '__main__':
     print(test_top_250_data())
