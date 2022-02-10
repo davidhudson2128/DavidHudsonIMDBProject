@@ -1,10 +1,12 @@
+# import pytest
+# import main
 import pytest
 
 import main
 
 with open("../secret_api_key.txt", "r") as secret_file:
     api_key = secret_file.read()
-
+    
 
 @pytest.fixture
 def add():
@@ -22,3 +24,4 @@ def test_top_250_data():
 
 if __name__ == '__main__':
     print(test_top_250_data())
+    assert 4 == 4
