@@ -1,9 +1,7 @@
 import sqlite3
-import json
-
+# import json
 from typing import Tuple
-
-import requests
+# import requests
 
 
 def open_db(filename: str) -> Tuple[sqlite3.Connection, sqlite3.Cursor]:
@@ -30,8 +28,9 @@ def create_db_columns_top250(curser):
             PRIMARY KEY("id")
         );''')
     # Database already created
-    except sqlite3.OperationalError as e:
+    except sqlite3.OperationalError:
         pass
+
 
 def create_db_columns_user_ratings(curser):
     # try:
@@ -75,11 +74,17 @@ def write_data_to_db_top250(curser, top_250_shows_data):
     for show_index in list_of_show_indexes_to_add:
         curser.execute(f'''INSERT INTO Top250Data(id, title, full_title,
                 year, crew, imdb_rating, imdb_rating_count)
-                 VALUES ('{top_250_shows_data.get('items')[show_index].get('id')}', '{top_250_shows_data.get('items')[show_index].get('title')}', '{top_250_shows_data.get('items')[show_index].get('fullTitle')}', '{top_250_shows_data.get('items')[show_index].get('year')}', '{top_250_shows_data.get('items')[show_index].get('crew')}', '{top_250_shows_data.get('items')[show_index].get('imDbRating')}', '{top_250_shows_data.get('items')[show_index].get('imDbRatingCount')}')''')
+                 VALUES ('{top_250_shows_data.get('items')[show_index].get('id')}', 
+                 '{top_250_shows_data.get('items')[show_index].get('title')}', 
+                 '{top_250_shows_data.get('items')[show_index].get('fullTitle')}', 
+                 '{top_250_shows_data.get('items')[show_index].get('year')}', 
+                 '{top_250_shows_data.get('items')[show_index].get('crew')}', 
+                 '{top_250_shows_data.get('items')[show_index].get('imDbRating')}', 
+                 '{top_250_shows_data.get('items')[show_index].get('imDbRatingCount')}')''')
 
     # Get Wheel of Time data
-    with open("secret_api_key.txt", "r") as secret_file:
-        api_key = secret_file.read()
+    # with open("secret_api_key.txt", "r") as secret_file:
+    #     api_key = secret_file.read()
     # wheel_of_time_data = requests.get(f'https://imdb-api.com/en/API/Report/{api_key}/tt7462410').json()
 
     # with open('wheel_of_time_data.json', 'w') as file:
@@ -140,5 +145,3 @@ def main(top_250_shows_data, user_ratings_data):
 
     close_db(conn_top250)
     close_db(conn_user_ratings)
-
-
