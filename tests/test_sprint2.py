@@ -12,7 +12,7 @@ def add():
 
 
 def test_example():
-    assert 4 == 4
+    assert 4 == add(2+2)
 
 
 def test_top_250_data():
