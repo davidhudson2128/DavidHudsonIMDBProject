@@ -74,12 +74,12 @@ def write_data_to_db_top250(curser, top_250_shows_data):
     for show_index in list_of_show_indexes_to_add:
         curser.execute(f'''INSERT INTO Top250Data(id, title, full_title,
                 year, crew, imdb_rating, imdb_rating_count)
-                 VALUES ('{top_250_shows_data.get('items')[show_index].get('id')}', 
-                 '{top_250_shows_data.get('items')[show_index].get('title')}', 
-                 '{top_250_shows_data.get('items')[show_index].get('fullTitle')}', 
-                 '{top_250_shows_data.get('items')[show_index].get('year')}', 
-                 '{top_250_shows_data.get('items')[show_index].get('crew')}', 
-                 '{top_250_shows_data.get('items')[show_index].get('imDbRating')}', 
+                 VALUES ('{top_250_shows_data.get('items')[show_index].get('id')}',
+                 '{top_250_shows_data.get('items')[show_index].get('title')}',
+                 '{top_250_shows_data.get('items')[show_index].get('fullTitle')}',
+                 '{top_250_shows_data.get('items')[show_index].get('year')}',
+                 '{top_250_shows_data.get('items')[show_index].get('crew')}',
+                 '{top_250_shows_data.get('items')[show_index].get('imDbRating')}',
                  '{top_250_shows_data.get('items')[show_index].get('imDbRatingCount')}')''')
 
     # Get Wheel of Time data
