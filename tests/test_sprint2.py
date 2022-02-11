@@ -22,6 +22,6 @@ def test_top_250_data():
     top_250_data_size = len(top_250_data.get('items'))
     assert top_250_data_size == 250
 
+
 if __name__ == '__main__':
     print(test_top_250_data())
-    assert 4 == 4

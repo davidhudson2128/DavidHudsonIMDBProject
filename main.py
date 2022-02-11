@@ -1,13 +1,14 @@
 # import requests
 import json
 # import pprint
+import databases
 
 
 # sample comment to test workflow
 
 
-def get_top_250_shows(api_key):
-    # top_250_shows_request = requests.get(f"https://imdb-api.com/en/API/Top250TVs/{api_key}")
+def get_top_250_shows(secret_key):
+    # top_250_shows_request = requests.get(f"https://imdb-api.com/en/API/Top250TVs/{secret_key}")
     # top_250_shows_json = top_250_shows_request.json()
 
     # store data to file to avoid API requests
@@ -35,6 +36,7 @@ def write_top_250_shows_data_to_file(file_name: str, shows_data):
 
 def write_user_ratings_data_to_file(file_name: str, shows_data, imdb_api_key):
     print(shows_data)
+    print(imdb_api_key)
     # show_1_id = shows_data.get('items')[0].get('id')
     # show_50_id = shows_data.get('items')[49].get('id')
     # show_100_id = shows_data.get('items')[99].get('id')
@@ -63,6 +65,8 @@ def write_user_ratings_data_to_file(file_name: str, shows_data, imdb_api_key):
         ratings_data_show_200 = json.load(file)
     with open("ratings_data_wheel_of_time.json", "r") as file:
         ratings_data_show_wheel_of_time = json.load(file)
+
+    user_ratings_data_list = [ratings_data_show_1, ratings_data_show_50, ratings_data_show_100, ratings_data_show_200, ratings_data_show_wheel_of_time]
 
     # Writing to file
     with open(file_name, "w") as output:
@@ -112,9 +116,10 @@ def write_user_ratings_data_to_file(file_name: str, shows_data, imdb_api_key):
 
         output.write("\n\n")
 
+    return user_ratings_data_list
+
 
 if __name__ == '__main__':
-
 
     with open("secret_api_key.txt", "r") as secret_file:
         api_key = secret_file.read()
@@ -122,5 +127,6 @@ if __name__ == '__main__':
     top_250_shows_data = get_top_250_shows(api_key)
     output_file = "output.txt"
 
-    write_user_ratings_data_to_file(output_file, top_250_shows_data, api_key)
+    user_ratings_data = write_user_ratings_data_to_file(output_file, top_250_shows_data, api_key)
     write_top_250_shows_data_to_file(output_file, top_250_shows_data)
+    databases.main(top_250_shows_data, user_ratings_data)
