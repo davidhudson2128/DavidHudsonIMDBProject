@@ -13,7 +13,7 @@ The user_ratings_db contains info about shows' rating, with the columns includin
 The imdbId field in the user_ratings_db is foreign keyed to the top_250_shows_db id field
 
 Missing From Project:
-- GitHub Secret API key not working (After creating the API_KEY environment variable I was unable to access it within python)
+- GitHub Secret API key not working (After creating the API_KEY environment variable in YAML I was unable to access it within python)
 - The first test isn't working properly
 - No second test
 - All of a sudden the build is failing at the Install Dependencies step. (Might have something to do with the pip/python on my computer)
