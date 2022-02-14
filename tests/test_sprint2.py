@@ -2,6 +2,7 @@
 # import main
 import pytest
 
+import databases
 import main
 
 with open("../secret_api_key.txt", "r") as secret_file:
