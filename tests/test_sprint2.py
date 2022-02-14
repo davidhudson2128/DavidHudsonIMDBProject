@@ -9,6 +9,8 @@ with open("../secret_api_key.txt", "r") as secret_file:
     api_key = secret_file.read()
 
 
+print(databases.open_db())
+
 @pytest.fixture
 def add():
     return 1+1
