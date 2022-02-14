@@ -66,7 +66,8 @@ def write_user_ratings_data_to_file(file_name: str, shows_data, imdb_api_key):
     with open("ratings_data_wheel_of_time.json", "r") as file:
         ratings_data_show_wheel_of_time = json.load(file)
 
-    user_ratings_data_list = [ratings_data_show_1, ratings_data_show_50, ratings_data_show_100, ratings_data_show_200, ratings_data_show_wheel_of_time]
+    user_ratings_data_list = [ratings_data_show_1, ratings_data_show_50, ratings_data_show_100, ratings_data_show_200,
+                              ratings_data_show_wheel_of_time]
 
     # Writing to file
     with open(file_name, "w") as output:
