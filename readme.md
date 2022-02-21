@@ -14,4 +14,4 @@ The imdbId field in the user_ratings_db is foreign keyed to the top_250_shows_db
 
 Missing From Project:
 - GitHub Secret API key not working (After creating the API_KEY environment variable in YAML I was unable to access it within python)
-
+- Some missing/incomplete tests
