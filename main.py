@@ -17,10 +17,10 @@ def get_top_250_shows():
     # top_250_shows_json = top_250_shows_request.json()
 
     # store data to file to avoid API requests
-    # with open("top_250_shows.json", "w") as file:
+    # with open("json data/top_250_shows.json", "w") as file:
     #     file.write(json.dumps(top_250_shows_json))
     # read data from file
-    with open("top_250_shows.json", "r") as file:
+    with open("json data/top_250_shows.json", "r") as file:
         top_250_shows_json = json.load(file)
 
     return top_250_shows_json
@@ -62,15 +62,15 @@ def write_user_ratings_data_to_file(file_name: str, shows_data):
     # ratings_data_show_wheel_of_time = requests.get(
     #     f"https://imdb-api.com/en/API/UserRatings/{api_key}/{show_wheel_of_time_id}").json()
 
-    with open("ratings_data_show_1.json", "r") as file:
+    with open("json data/ratings_data_show_1.json", "r") as file:
         ratings_data_show_1 = json.load(file)
-    with open("ratings_data_show_50.json", "r") as file:
+    with open("json data/ratings_data_show_50.json", "r") as file:
         ratings_data_show_50 = json.load(file)
-    with open("ratings_data_show_100.json", "r") as file:
+    with open("json data/ratings_data_show_100.json", "r") as file:
         ratings_data_show_100 = json.load(file)
-    with open("ratings_data_show_200.json", "r") as file:
+    with open("json data/ratings_data_show_200.json", "r") as file:
         ratings_data_show_200 = json.load(file)
-    with open("ratings_data_wheel_of_time.json", "r") as file:
+    with open("json data/ratings_data_wheel_of_time.json", "r") as file:
         ratings_data_show_wheel_of_time = json.load(file)
 
     user_ratings_data_list = [ratings_data_show_1, ratings_data_show_50, ratings_data_show_100, ratings_data_show_200,

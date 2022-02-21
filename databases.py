@@ -129,10 +129,10 @@ def write_data_to_db_most_popular_shows(cursor):
     # most_popular_shows_request = requests.get(f'https://imdb-api.com/en/API/MostPopularTVs/{imdb_api_key}')
     # most_popular_shows_data = most_popular_shows_request.json().get('items')
     #
-    # with open("most_popular_shows.json", "w") as file:
+    # with open("json data/most_popular_shows.json", "w") as file:
     #     file.write(json.dumps(most_popular_shows_data))
     # read data from file
-    with open("most_popular_shows.json", "r") as file:
+    with open("json data/most_popular_shows.json", "r") as file:
         most_popular_shows_data = json.load(file)
 
     for show in most_popular_shows_data:
@@ -159,10 +159,10 @@ def write_data_to_db_most_popular_movies(cursor):
     # most_popular_movies_request = requests.get(f'https://imdb-api.com/en/API/MostPopularMovies/{imdb_api_key}')
     # most_popular_movies_data = most_popular_movies_request.json().get('items')
     #
-    # with open("most_popular_movies.json", "w") as file:
+    # with open("json data/most_popular_movies.json", "w") as file:
     #     file.write(json.dumps(most_popular_movies_data))
     # read data from file
-    with open("most_popular_movies.json", "r") as file:
+    with open("json data/most_popular_movies.json", "r") as file:
         most_popular_movies_data = json.load(file)
 
 
@@ -190,10 +190,10 @@ def write_data_to_db_top250_movies(cursor):
     # top_250_movies_request = requests.get(f'https://imdb-api.com/en/API/Top250Movies/{imdb_api_key}')
     # top_250_movies_data = top_250_movies_request.json().get('items')
     #
-    # with open("top_250_movies.json", "w") as file:
+    # with open("json data/top_250_movies.json", "w") as file:
     #     file.write(json.dumps(top_250_movies_data))
     # read data from file
-    with open("top_250_movies.json", "r") as file:
+    with open("json data/top_250_movies.json", "r") as file:
         top_250_movies_data = json.load(file)
 
 
