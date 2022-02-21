@@ -8,10 +8,9 @@ import databases
 
 
 def get_top_250_shows():
-
     # with open("secrets.py", "r") as secret_file:
-        # secret_key = secret_file.read()
-        # secret_key = "k_ul3l4k74"
+    # secret_key = secret_file.read()
+    # secret_key = "k_ul3l4k74"
 
     # top_250_shows_request = requests.get(f"https://imdb-api.com/en/API/Top250TVs/{secret_key}")
     # top_250_shows_json = top_250_shows_request.json()
@@ -41,8 +40,8 @@ def write_top_250_shows_data_to_file(file_name: str, shows_data):
 
 def write_user_ratings_data_to_file(file_name: str, shows_data):
     # with open("secrets.py", "r") as secret_file:
-        # imdb_api_key = secret_file.read()
-        # imdb_api_key = "k_ul3l4k74"
+    # imdb_api_key = secret_file.read()
+    # imdb_api_key = "k_ul3l4k74"
 
     # show_1_id = shows_data.get('items')[0].get('id')
     # show_50_id = shows_data.get('items')[49].get('id')
@@ -128,7 +127,6 @@ def write_user_ratings_data_to_file(file_name: str, shows_data):
 
 
 if __name__ == '__main__':
-
     top_250_shows_data = get_top_250_shows()
     output_file = "output.txt"
 

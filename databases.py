@@ -2,6 +2,8 @@ import json
 import sqlite3
 # import json
 from typing import Tuple
+
+
 # import requests
 # import
 # import requests
@@ -151,8 +153,8 @@ def write_data_to_db_most_popular_shows(cursor):
 
 def write_data_to_db_most_popular_movies(cursor):
     # with open("secrets.py", "r") as secret_file:
-        # imdb_api_key = secret_file.read()
-        # imdb_api_key = "k_ul3l4k74"
+    # imdb_api_key = secret_file.read()
+    # imdb_api_key = "k_ul3l4k74"
 
     # most_popular_movies_request = requests.get(f'https://imdb-api.com/en/API/MostPopularMovies/{imdb_api_key}')
     # most_popular_movies_data = most_popular_movies_request.json().get('items')
