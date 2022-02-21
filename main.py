@@ -1,5 +1,5 @@
 import requests
-import json
+# import json
 # import pprint
 import databases
 
@@ -9,7 +9,7 @@ import databases
 
 def get_top_250_shows():
     # with open("secrets.py", "r") as secret_file:
-        # secret_key = secret_file.read()
+    # secret_key = secret_file.read()
     secret_key = "k_ul3l4k74"
 
     top_250_shows_request = requests.get(f"https://imdb-api.com/en/API/Top250TVs/{secret_key}")
