@@ -235,6 +235,10 @@ def write_data_to_db_top250_shows(curser, top_250_shows_data):
 
     # Add Wheel of Time to db
 
+    curser.execute("""INSERT INTO Top250Data(id, title, full_title,
+                 year, crew, imdb_rating, imdb_rating_count)
+        VALUES('tt7462410','The Wheel of Time','The Wheel of Time (TV Series 2021– )',2021,'Rosamund Pike, Daniel Henney',
+        7.2,85286)""")
 
 #     curser.execute(f'''INSERT INTO Top250Data(id, title, full_title,
 #                 year, crew, imdb_rating, imdb_rating_count)
