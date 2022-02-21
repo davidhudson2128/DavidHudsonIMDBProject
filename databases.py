@@ -4,7 +4,7 @@ import sqlite3
 from typing import Tuple
 # import requests
 # import
-import requests
+# import requests
 
 
 def open_db(filename: str) -> Tuple[sqlite3.Connection, sqlite3.Cursor]:
@@ -121,7 +121,6 @@ def create_db_columns_most_highest_movers_movies(cursor):
 
 
 def write_data_to_db_most_popular_shows(cursor):
-
     with open("secrets.py", "r") as secret_file:
         imdb_api_key = secret_file.read()
         imdb_api_key = "k_ul3l4k74"
@@ -136,7 +135,6 @@ def write_data_to_db_most_popular_shows(cursor):
         most_popular_shows_data = json.load(file)
 
     for show in most_popular_shows_data:
-
         # print(show)
 
         cursor.execute(f'''INSERT INTO MostPopularShows(id, rank, rankUpDown, title, full_title,
@@ -165,9 +163,7 @@ def write_data_to_db_most_popular_movies(cursor):
     with open("json data/most_popular_movies.json", "r") as file:
         most_popular_movies_data = json.load(file)
 
-
     for movie in most_popular_movies_data:
-
         # print(show)
 
         cursor.execute(f'''INSERT INTO MostPopularMovies(id, rank, rankUpDown, title, full_title,
@@ -183,7 +179,6 @@ def write_data_to_db_most_popular_movies(cursor):
 
 
 def write_data_to_db_top250_movies(cursor):
-
     with open("secrets.py", "r") as secret_file:
         imdb_api_key = secret_file.read()
         imdb_api_key = "k_ul3l4k74"
@@ -195,8 +190,6 @@ def write_data_to_db_top250_movies(cursor):
     # read data from file
     with open("json data/top_250_movies.json", "r") as file:
         top_250_movies_data = json.load(file)
-
-
 
     for movie in top_250_movies_data:
         cursor.execute(f'''INSERT INTO Top250MoviesData(id, title, full_title,
@@ -211,7 +204,6 @@ def write_data_to_db_top250_movies(cursor):
 
 
 def write_data_to_db_top250_shows(curser, top_250_shows_data):
-
     # try:
 
     # Add Shows 1, 50,101, 200 to Database
@@ -240,6 +232,8 @@ def write_data_to_db_top250_shows(curser, top_250_shows_data):
     # print(wheel_of_time_data)
 
     # Add Wheel of Time to db
+
+
 #     curser.execute(f'''INSERT INTO Top250Data(id, title, full_title,
 #                 year, crew, imdb_rating, imdb_rating_count)
 #                  VALUES ('{top_250_shows_data.get('items')[show_index].get('id')}', '{top_250_shows_data.get('items')
@@ -250,13 +244,12 @@ def write_data_to_db_top250_shows(curser, top_250_shows_data):
 #                  '{top_250_shows_data.get('items')[show_index].get('imDbRatingCount')}')''')
 # )
 
-    # Primary key not unique
-    # except sqlite3.IntegrityError:
-    #     print("b")
+# Primary key not unique
+# except sqlite3.IntegrityError:
+#     print("b")
 
 
 def write_data_to_db_user_ratings(cursor, ratings_data):
-
     # print(ratings_data)
     for show_data in ratings_data:
         # print(show_data.get('ratings'))
@@ -316,9 +309,6 @@ def write_data_to_db_highest_movers_movies(cursor):
                              )''')
 
 
-
-
-
 def main(top_250_shows_data, user_ratings_data):
     conn_top250_shows, cursor_top250_shows = open_db("top_250_shows_db.sqlite")
     create_db_columns_top250(cursor_top250_shows)
@@ -340,16 +330,13 @@ def main(top_250_shows_data, user_ratings_data):
     create_db_columns_most_popular_movies(cursor_most_popular_movies)
     write_data_to_db_most_popular_movies(cursor_most_popular_movies)
 
-
     close_db(conn_top250_shows)
     close_db(conn_user_ratings)
     close_db(conn_most_popular_shows)
     close_db(conn_top250_movies)
     close_db(conn_most_popular_movies)
 
-
     conn_highest_movers_movies, cursor_highest_movers_movies = open_db("highest_movers_db.sqlite")
     create_db_columns_most_highest_movers_movies(cursor_highest_movers_movies)
     write_data_to_db_highest_movers_movies(cursor_highest_movers_movies)
     close_db(conn_highest_movers_movies)
-
