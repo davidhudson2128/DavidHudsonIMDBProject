@@ -77,6 +77,7 @@ def create_db_columns_user_ratings(curser):
         "rating_percent_1"	TEXT,
         "rating_votes_1"	TEXT,
         FOREIGN KEY("imdb_id") REFERENCES "Top250Data"("id")
+        
     );''')
     # Database already created
     # except sqlite3.OperationalError as e:
@@ -119,6 +120,7 @@ def create_db_columns_most_highest_movers_movies(cursor):
             "year"	INTEGER,
             "crew"	TEXT,
             PRIMARY KEY("id")
+            FOREIGN KEY("id") REFERENCES "MostPopularMovies"("id")
         );''')
 
 
@@ -315,38 +317,9 @@ def write_data_to_db_highest_movers_movies(cursor):
 
 
 def main(top_250_shows_data, user_ratings_data):
-    # conn_top250_shows, cursor_top250_shows = open_db("top_250_shows_db.sqlite")
-    # create_db_columns_top250(cursor_top250_shows)
-    # write_data_to_db_top250_shows(cursor_top250_shows, top_250_shows_data)
-    #
-    # conn_user_ratings, cursor_user_ratings = open_db("user_ratings_db.sqlite")
-    # create_db_columns_user_ratings(cursor_user_ratings)
-    # write_data_to_db_user_ratings(cursor_user_ratings, user_ratings_data)
-    #
-    # conn_most_popular_shows, cursor_most_popular_shows = open_db("most_popular_shows_db.sqlite")
-    # create_db_columns_most_popular_shows(cursor_most_popular_shows)
-    # write_data_to_db_most_popular_shows(cursor_most_popular_shows)
-    #
-    # conn_top250_movies, cursor_top250_movies = open_db("top_250_movies_db.sqlite")
-    # create_db_columns_top250_movies(cursor_top250_movies)
-    # write_data_to_db_top250_movies(cursor_top250_movies)
-    #
-    # conn_most_popular_movies, cursor_most_popular_movies = open_db("most_popular_movies_db.sqlite")
-    # create_db_columns_most_popular_movies(cursor_most_popular_movies)
-    # write_data_to_db_most_popular_movies(cursor_most_popular_movies)
-    #
-    # close_db(conn_top250_shows)
-    # close_db(conn_user_ratings)
-    # close_db(conn_most_popular_shows)
-    # close_db(conn_top250_movies)
-    # close_db(conn_most_popular_movies)
-    #
-    # conn_highest_movers_movies, cursor_highest_movers_movies = open_db("highest_movers_db.sqlite")
-    # create_db_columns_most_highest_movers_movies(cursor_highest_movers_movies)
-    # write_data_to_db_highest_movers_movies(cursor_highest_movers_movies)
-    # close_db(conn_highest_movers_movies)
 
     conn, cursor = open_db("IMDBDatabase.sqlite")
+
     create_db_columns_top250(cursor)
     write_data_to_db_top250_shows(cursor, top_250_shows_data)
 
