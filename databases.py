@@ -77,7 +77,6 @@ def create_db_columns_user_ratings(curser):
         "rating_percent_1"	TEXT,
         "rating_votes_1"	TEXT,
         FOREIGN KEY("imdb_id") REFERENCES "Top250Data"("id")
-        
     );''')
     # Database already created
     # except sqlite3.OperationalError as e:
@@ -280,17 +279,33 @@ def write_data_to_db_user_ratings(cursor, ratings_data):
                          '{show_data.get('ratings')[9].get('votes')}')''')
 
 
-def write_data_to_db_highest_movers_movies(cursor):
+def find_biggest_increases(cursor):
     biggest_increases = []
-    biggest_decreases = []
-
     movies_sorted_by_rankUpDown = cursor.execute('''
     SELECT * FROM MostPopularMovies ORDER BY rankUpDown DESC;
     ''').fetchall()
     biggest_increases.append(movies_sorted_by_rankUpDown[0])
     biggest_increases.append(movies_sorted_by_rankUpDown[1])
     biggest_increases.append(movies_sorted_by_rankUpDown[2])
+
+    print(biggest_increases)
+
+    return biggest_increases
+
+
+def find_biggest_decreases(cursor):
+    biggest_decreases = []
+    movies_sorted_by_rankUpDown = cursor.execute('''
+    SELECT * FROM MostPopularMovies ORDER BY rankUpDown DESC;
+    ''').fetchall()
     biggest_decreases.append(movies_sorted_by_rankUpDown[-1])
+
+    return biggest_decreases
+
+
+def write_data_to_db_highest_movers_movies(cursor):
+    biggest_increases = find_biggest_increases(cursor)
+    biggest_decreases = find_biggest_decreases(cursor)
 
     for movie in biggest_increases:
         cursor.execute(f'''INSERT INTO HighestMoversMovies(id, rank, rankUpDown, title, full_title,
