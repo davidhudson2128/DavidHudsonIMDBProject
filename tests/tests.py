@@ -57,5 +57,14 @@ def test_find_biggest_movers():
     databases.close_db(test_data_conn)
 
 
+def test_new_table_created():
+    # conn, cursor = databases.open_db('IMDBDatabase.sqlite')
+    #
+    # assert cursor.execute('''
+    #     SELECT NAME FROM sqlite_master WHERE type='table';
+    #     ''').fetchall() == 1
+    pass
+
+
 if __name__ == '__main__':
     print(test_top_250_data())
