@@ -5,6 +5,7 @@
 # import databases
 import databases
 import main
+import GUI
 
 
 # with open("secrets.py", "r") as secret_file:
@@ -64,6 +65,12 @@ def test_new_table_created():
     #     SELECT NAME FROM sqlite_master WHERE type='table';
     #     ''').fetchall() == 1
     pass
+
+
+def test_movie_crossovers():
+    overlap = GUI.DataGraphWindow.find_overlapping_movies()
+    assert overlap <= 100
+    # assert overlap[-1] in
 
 
 if __name__ == '__main__':

@@ -2,6 +2,7 @@ import requests
 import json
 # import pprint
 import databases
+import GUI
 
 
 # sample comment to test workflow
@@ -131,3 +132,4 @@ if __name__ == '__main__':
     user_ratings_data = write_user_ratings_data_to_file(output_file, top_250_shows_data)
     write_top_250_shows_data_to_file(output_file, top_250_shows_data)
     databases.main(top_250_shows_data, user_ratings_data)
+    GUI.main()
