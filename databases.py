@@ -1,5 +1,5 @@
 import sqlite3
-# import json
+import json
 from typing import Tuple
 
 
@@ -108,31 +108,45 @@ def create_db_columns_most_popular_movies(cursor):
 
 def create_db_columns_most_highest_movers_movies(cursor):
     cursor.execute('''CREATE TABLE IF NOT EXISTS HighestMoversMovies(
-            "id"	TEXT,
-            "rank"  INTEGER,
-            "rankUpDown"    INT,
-            "title"	TEXT,
-            "full_title"	TEXT,
-            "year"	INTEGER,
-            "crew"	TEXT,
-            PRIMARY KEY("id")
-            FOREIGN KEY("id") REFERENCES "MostPopularMovies"("id")
+            "imdb_id"	TEXT,
+            "total_rating"	TEXT,
+            "total_rating_votes"    TEXT,
+            "rating_percent_10"	TEXT,
+            "rating_votes_10"	TEXT,
+            "rating_percent_9"	TEXT,
+            "rating_votes_9"	TEXT,
+            "rating_percent_8"	TEXT,
+            "rating_votes_8"	TEXT,
+            "rating_percent_7"	TEXT,
+            "rating_votes_7"	TEXT,
+            "rating_percent_6"	TEXT,
+            "rating_votes_6"	TEXT,
+            "rating_percent_5"	TEXT,
+            "rating_votes_5"	TEXT,
+            "rating_percent_4"	TEXT,
+            "rating_votes_4"	TEXT,
+            "rating_percent_3"	TEXT,
+            "rating_votes_3"	TEXT,
+            "rating_percent_2"	TEXT,
+            "rating_votes_2"	TEXT,
+            "rating_percent_1"	TEXT,
+            "rating_votes_1"	TEXT
         );''')
 
 
 def write_data_to_db_most_popular_shows(cursor):
     # with open("secrets.py", "r") as secret_file:
     #     imdb_api_key = secret_file.read()
-    imdb_api_key = "k_ul3l4k74"
+    # imdb_api_key = "k_ul3l4k74"
 
-    most_popular_shows_request = requests.get(f'https://imdb-api.com/en/API/MostPopularTVs/{imdb_api_key}')
-    most_popular_shows_data = most_popular_shows_request.json().get('items')
+    # most_popular_shows_request = requests.get(f'https://imdb-api.com/en/API/MostPopularTVs/{imdb_api_key}')
+    # most_popular_shows_data = most_popular_shows_request.json().get('items')
     #
     # with open("json data/most_popular_shows.json", "w") as file:
     #     file.write(json.dumps(most_popular_shows_data))
     # read data from file
-    # with open("json data/most_popular_shows.json", "r") as file:
-    #     most_popular_shows_data = json.load(file)
+    with open("json data/most_popular_shows.json", "r") as file:
+        most_popular_shows_data = json.load(file)
 
     for show in most_popular_shows_data:
         # print(show)
@@ -154,14 +168,14 @@ def write_data_to_db_most_popular_movies(cursor):
     # imdb_api_key = secret_file.read()
     imdb_api_key = "k_ul3l4k74"
 
-    most_popular_movies_request = requests.get(f'https://imdb-api.com/en/API/MostPopularMovies/{imdb_api_key}')
-    most_popular_movies_data = most_popular_movies_request.json().get('items')
+    # most_popular_movies_request = requests.get(f'https://imdb-api.com/en/API/MostPopularMovies/{imdb_api_key}')
+    # most_popular_movies_data = most_popular_movies_request.json().get('items')
     #
     # with open("json data/most_popular_movies.json", "w") as file:
     #     file.write(json.dumps(most_popular_movies_data))
     # read data from file
-    # with open("json data/most_popular_movies.json", "r") as file:
-    #     most_popular_movies_data = json.load(file)
+    with open("json data/most_popular_movies.json", "r") as file:
+        most_popular_movies_data = json.load(file)
 
     for movie in most_popular_movies_data:
         # print(show)
@@ -181,15 +195,15 @@ def write_data_to_db_most_popular_movies(cursor):
 def write_data_to_db_top250_movies(cursor):
     # with open("secrets.py", "r") as secret_file:
     #     imdb_api_key = secret_file.read()
-    imdb_api_key = "k_ul3l4k74"
-    top_250_movies_request = requests.get(f'https://imdb-api.com/en/API/Top250Movies/{imdb_api_key}')
-    top_250_movies_data = top_250_movies_request.json().get('items')
+    # imdb_api_key = "k_ul3l4k74"
+    # top_250_movies_request = requests.get(f'https://imdb-api.com/en/API/Top250Movies/{imdb_api_key}')
+    # top_250_movies_data = top_250_movies_request.json().get('items')
     #
     # with open("json data/top_250_movies.json", "w") as file:
     #     file.write(json.dumps(top_250_movies_data))
     # read data from file
-    # with open("json data/top_250_movies.json", "r") as file:
-    #     top_250_movies_data = json.load(file)
+    with open("json data/top_250_movies.json", "r") as file:
+        top_250_movies_data = json.load(file)
 
     for movie in top_250_movies_data:
         cursor.execute(f'''INSERT INTO Top250MoviesData(id, title, full_title,
@@ -281,9 +295,11 @@ def find_biggest_increases(cursor):
     movies_sorted_by_rankUpDown = cursor.execute('''
     SELECT * FROM MostPopularMovies ORDER BY rankUpDown DESC;
     ''').fetchall()
-    biggest_increases.append(movies_sorted_by_rankUpDown[0])
-    biggest_increases.append(movies_sorted_by_rankUpDown[1])
-    biggest_increases.append(movies_sorted_by_rankUpDown[2])
+    biggest_increases.append(movies_sorted_by_rankUpDown[0][0])
+    biggest_increases.append(movies_sorted_by_rankUpDown[1][0])
+    biggest_increases.append(movies_sorted_by_rankUpDown[2][0])
+
+
 
     return biggest_increases
 
@@ -293,7 +309,7 @@ def find_biggest_decreases(cursor):
     movies_sorted_by_rankUpDown = cursor.execute('''
     SELECT * FROM MostPopularMovies ORDER BY rankUpDown DESC;
     ''').fetchall()
-    biggest_decreases.append(movies_sorted_by_rankUpDown[-1])
+    biggest_decreases.append(movies_sorted_by_rankUpDown[-2][0])
 
     return biggest_decreases
 
@@ -302,28 +318,58 @@ def write_data_to_db_highest_movers_movies(cursor):
     biggest_increases = find_biggest_increases(cursor)
     biggest_decreases = find_biggest_decreases(cursor)
 
-    for movie in biggest_increases:
-        cursor.execute(f'''INSERT INTO HighestMoversMovies(id, rank, rankUpDown, title, full_title,
-                            year, crew)
-                             VALUES ('{movie[0]}',
-                             '{movie[1]}',
-                             '{int(movie[2])}',
-                             '{movie[3]}',
-                             '{movie[4]}',
-                             '{movie[5]}',
-                             '{movie[6]}'
-                             )''')
-    for movie in biggest_decreases:
-        cursor.execute(f'''INSERT INTO HighestMoversMovies(id, rank, rankUpDown, title, full_title,
-                            year, crew)
-                             VALUES ('{movie[0]}',
-                             '{movie[1]}',
-                             '{int(movie[2])}',
-                             '{movie[3]}',
-                             '{movie[4]}',
-                             '{movie[5]}',
-                             '{movie[6]}'
-                             )''')
+    imdb_api_key = "k_ul3l4k74"
+
+    biggest_increases_ratings = []
+    biggest_decreases_ratings = []
+
+    for imdb_id in biggest_increases:
+        ratings_data = requests.get(f"https://imdb-api.com/en/API/UserRatings/{imdb_api_key}/{imdb_id}").json()
+        biggest_increases_ratings.append(ratings_data)
+
+    for imdb_id in biggest_decreases:
+        ratings_data = requests.get(f"https://imdb-api.com/en/API/UserRatings/{imdb_api_key}/{imdb_id}").json()
+        biggest_decreases_ratings.append(ratings_data)
+
+    for movie in biggest_increases_ratings:
+        print(movie)
+        cursor.execute(f'''INSERT INTO HighestMoversMovies(imdb_id, total_rating, total_rating_votes,
+                         rating_percent_10, rating_votes_10, rating_percent_9, rating_votes_9, rating_percent_8,
+                         rating_votes_8, rating_percent_7, rating_votes_7, rating_percent_6, rating_votes_6,
+                         rating_percent_5, rating_votes_5, rating_percent_4, rating_votes_4, rating_percent_3,
+                         rating_votes_3, rating_percent_2, rating_votes_2, rating_percent_1, rating_votes_1)
+                         VALUES ('{movie.get('imDbId')}', '{movie.get('totalRating')}',
+                         '{movie.get('totalRatingVotes')}', '{movie.get('ratings')[0].get('percent')}',
+                         '{movie.get('ratings')[0].get('votes')}', '{movie.get('ratings')[1].get('percent')}',
+                         '{movie.get('ratings')[1].get('votes')}', '{movie.get('ratings')[2].get('percent')}',
+                         '{movie.get('ratings')[2].get('votes')}', '{movie.get('ratings')[3].get('percent')}',
+                         '{movie.get('ratings')[3].get('votes')}', '{movie.get('ratings')[4].get('percent')}',
+                         '{movie.get('ratings')[4].get('votes')}', '{movie.get('ratings')[5].get('percent')}',
+                         '{movie.get('ratings')[5].get('votes')}', '{movie.get('ratings')[6].get('percent')}',
+                         '{movie.get('ratings')[6].get('votes')}', '{movie.get('ratings')[7].get('percent')}',
+                         '{movie.get('ratings')[7].get('votes')}', '{movie.get('ratings')[8].get('percent')}',
+                         '{movie.get('ratings')[8].get('votes')}', '{movie.get('ratings')[9].get('percent')}',
+                         '{movie.get('ratings')[9].get('votes')}')''')
+
+    for movie in biggest_decreases_ratings:
+        print(movie)
+        cursor.execute(f'''INSERT INTO HighestMoversMovies(imdb_id, total_rating, total_rating_votes,
+                         rating_percent_10, rating_votes_10, rating_percent_9, rating_votes_9, rating_percent_8,
+                         rating_votes_8, rating_percent_7, rating_votes_7, rating_percent_6, rating_votes_6,
+                         rating_percent_5, rating_votes_5, rating_percent_4, rating_votes_4, rating_percent_3,
+                         rating_votes_3, rating_percent_2, rating_votes_2, rating_percent_1, rating_votes_1)
+                         VALUES ('{movie.get('imDbId')}', '{movie.get('totalRating')}',
+                         '{movie.get('totalRatingVotes')}', '{movie.get('ratings')[0].get('percent')}',
+                         '{movie.get('ratings')[0].get('votes')}', '{movie.get('ratings')[1].get('percent')}',
+                         '{movie.get('ratings')[1].get('votes')}', '{movie.get('ratings')[2].get('percent')}',
+                         '{movie.get('ratings')[2].get('votes')}', '{movie.get('ratings')[3].get('percent')}',
+                         '{movie.get('ratings')[3].get('votes')}', '{movie.get('ratings')[4].get('percent')}',
+                         '{movie.get('ratings')[4].get('votes')}', '{movie.get('ratings')[5].get('percent')}',
+                         '{movie.get('ratings')[5].get('votes')}', '{movie.get('ratings')[6].get('percent')}',
+                         '{movie.get('ratings')[6].get('votes')}', '{movie.get('ratings')[7].get('percent')}',
+                         '{movie.get('ratings')[7].get('votes')}', '{movie.get('ratings')[8].get('percent')}',
+                         '{movie.get('ratings')[8].get('votes')}', '{movie.get('ratings')[9].get('percent')}',
+                         '{movie.get('ratings')[9].get('votes')}')''')
 
 
 def main(top_250_shows_data, user_ratings_data):
