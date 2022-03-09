@@ -1,6 +1,7 @@
 import sqlite3
 
 import PySide6.QtWidgets
+import requests
 from PySide6.QtCharts import QLineSeries, QChart, QAbstractSeries, QBarSet, QBarSeries, QBarCategoryAxis, QValueAxis
 from PySide6.QtCore import QPointF
 import PySide6.Qt
@@ -67,21 +68,98 @@ def plot_data():
     plt.show()
 
 
-
-
-
-
-
 class DataGraphWindow(QWidget):
     def __init__(self):
         super().__init__()
         self.setup_window()
 
+
+        self.overlapping_shows = self.find_overlapping_shows()
+        self.overlapping_movies = self.find_overlapping_movies()
+
+        self.display_overlapping_shows()
+        self.display_overlapping_movies()
+
+    def display_overlapping_shows(self):
+
+        sent_str = ""
+        for show in self.overlapping_shows:
+            sent_str += show + ", "
+        sent_str = sent_str[:-2]
+
+
+        label = QLabel(self)
+        label.setText("Overlapping Shows:")
+        label.move(30, 50)
+        id_display = QLineEdit(f"{sent_str}", self)
+        id_display.move(180, 50)
+        id_display.resize(700, 30)
+
+    def display_overlapping_movies(self):
+
+        sent_str = ""
+        for movie in self.overlapping_movies:
+            sent_str += movie + ", "
+        sent_str = sent_str[:-2]
+
+
+        label = QLabel(self)
+        label.setText("Overlapping Movies:")
+        label.move(30, 250)
+        id_display = QLineEdit(f"{sent_str}", self)
+        id_display.move(180, 250)
+        id_display.resize(700, 30)
+
     def setup_window(self):
         self.setWindowTitle(f"Data Visualization")
         self.setGeometry(750, 100, 900, 800)
 
+    def find_overlapping_shows(self):
+        secret_key = "k_ul3l4k74"
 
+        top_250_shows_request = requests.get(f"https://imdb-api.com/en/API/Top250TVs/{secret_key}")
+        top_250_shows_json = top_250_shows_request.json()
+
+
+        top_250_show_ids = []
+        for show in top_250_shows_json.get('items'):
+            top_250_show_ids.append(show.get('id'))
+
+        overlapping_shows = []
+        conn, cursor = open_db("IMDBDatabase.sqlite")
+        cursor.execute("""SELECT * FROM MostPopularShows""")
+        popular_shows_data = cursor.fetchall()
+
+        for show in popular_shows_data:
+            if show[0] in top_250_show_ids:
+                overlapping_shows.append(show[0])
+
+        close_db(conn)
+
+        return overlapping_shows
+
+    def find_overlapping_movies(self):
+        secret_key = "k_ul3l4k74"
+
+        top_250_movies_request = requests.get(f"https://imdb-api.com/en/API/Top250Movies/{secret_key}")
+        top_250_movies_json = top_250_movies_request.json()
+
+        top_250_movies_ids = []
+        for movie in top_250_movies_json.get('items'):
+            top_250_movies_ids.append(movie.get('id'))
+
+        overlapping_movies = []
+        conn, cursor = open_db("IMDBDatabase.sqlite")
+        cursor.execute("""SELECT * FROM MostPopularMovies""")
+        popular_movies_data = cursor.fetchall()
+
+        for show in popular_movies_data:
+            if show[0] in top_250_movies_ids:
+                overlapping_movies.append(show[0])
+
+        close_db(conn)
+
+        return overlapping_movies
 
 
 class RatingsWindow(QWidget):
@@ -480,11 +558,11 @@ class StartWindow(QWidget):
         self.data_window = None
 
     def setup_window(self):
-        update_data_button = QPushButton("Push me for Demo", self)
+        update_data_button = QPushButton("Bottom", self)
         update_data_button.move(200, 400)
         update_data_button.clicked.connect(self.update_data)
 
-        data_visualization_button = QPushButton("Push me for Demo", self)
+        data_visualization_button = QPushButton("Top", self)
         data_visualization_button.move(200, 200)
         data_visualization_button.clicked.connect(self.open_data_visualization_window)
 
