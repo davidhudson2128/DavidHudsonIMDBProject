@@ -68,5 +68,10 @@ def test_movie_crossovers():
     # assert overlap[-1] in
 
 
+def test_show_crossovers():
+    overlap = GUI.DataGraphWindow.find_overlapping_shows()
+    assert overlap <= 100
+
+
 if __name__ == '__main__':
     print(test_top_250_data())
