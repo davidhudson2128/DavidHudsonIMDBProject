@@ -1,8 +1,3 @@
-# import pytest
-# import main
-# import pytest
-
-# import databases
 import databases
 import main
 import GUI

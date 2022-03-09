@@ -1,12 +1,11 @@
-import os
 import sqlite3
-import sys
 from typing import Tuple
 
 import PySide6.Qt
 import PySide6.QtWidgets
 import matplotlib.pyplot as plt
 import requests
+import sys
 from PySide6.QtWidgets import QWidget, QPushButton, QListWidget, QListWidgetItem, QLabel, QLineEdit
 
 
@@ -15,13 +14,12 @@ def open_db(filename: str) -> Tuple[sqlite3.Connection, sqlite3.Cursor]:
     cursor = db_connection.cursor()
     return db_connection, cursor
 
-
 def close_db(connection: sqlite3.Connection):
     connection.commit()
     connection.close()
 
-
 def plot_data():
+
     conn, cursor = open_db("IMDBDatabase.sqlite")
     cursor.execute("""SELECT * FROM MostPopularMovies""")
     movie_data = cursor.fetchall()
@@ -34,6 +32,7 @@ def plot_data():
         elif entry[2] > 1:
             number_increasing_movies += 1
         rankUpDown_values_movies.append(entry[2])
+
 
     cursor.execute("""SELECT * FROM MostPopularShows""")
     tv_data = cursor.fetchall()
@@ -53,12 +52,12 @@ def plot_data():
 
     axs[0].set_title("Most Popular Shows Movement")
     axs[0].hist(rankUpDown_values_tv, bins=60)
-    axs[0].text(max(rankUpDown_values_tv) / 2, 20, f"Number decreasing: {number_decreasing_shows}", fontsize=14)
-    axs[0].text(max(rankUpDown_values_tv) / 2, 35, f"Number increasing: {number_increasing_shows}", fontsize=14)
+    axs[0].text(max(rankUpDown_values_tv)/2, 20, f"Number decreasing: {number_decreasing_shows}", fontsize=14)
+    axs[0].text(max(rankUpDown_values_tv)/2, 35, f"Number increasing: {number_increasing_shows}", fontsize=14)
     axs[1].set_title("Most Popular Movies Movement")
     axs[1].hist(rankUpDown_values_movies, bins=60)
     axs[1].text(max(rankUpDown_values_movies) / 2, 20, f"Number decreasing: {number_decreasing_movies}", fontsize=14)
-    axs[1].text(max(rankUpDown_values_movies) / 2, 35, f"Number increasing: {number_increasing_movies}", fontsize=14)
+    axs[1].text(max(rankUpDown_values_movies)/2, 35, f"Number increasing: {number_increasing_movies}", fontsize=14)
     plt.show()
 
 
@@ -66,6 +65,7 @@ class DataGraphWindow(QWidget):
     def __init__(self):
         super().__init__()
         self.setup_window()
+
 
         self.overlapping_shows = self.find_overlapping_shows()
         self.overlapping_movies = self.find_overlapping_movies()
@@ -79,6 +79,7 @@ class DataGraphWindow(QWidget):
         for show in self.overlapping_shows:
             sent_str += show + ", "
         sent_str = sent_str[:-2]
+
 
         label = QLabel(self)
         label.setText("Overlapping Shows:")
@@ -94,6 +95,7 @@ class DataGraphWindow(QWidget):
             sent_str += movie + ", "
         sent_str = sent_str[:-2]
 
+
         label = QLabel(self)
         label.setText("Overlapping Movies:")
         label.move(30, 250)
@@ -102,7 +104,7 @@ class DataGraphWindow(QWidget):
         id_display.resize(700, 30)
 
     def setup_window(self):
-        self.setWindowTitle("Data Visualization")
+        self.setWindowTitle(f"Data Visualization")
         self.setGeometry(750, 100, 900, 800)
 
     def find_overlapping_shows(self):
@@ -110,6 +112,7 @@ class DataGraphWindow(QWidget):
 
         top_250_shows_request = requests.get(f"https://imdb-api.com/en/API/Top250TVs/{secret_key}")
         top_250_shows_json = top_250_shows_request.json()
+
 
         top_250_show_ids = []
         for show in top_250_shows_json.get('items'):
@@ -156,6 +159,7 @@ class RatingsWindow(QWidget):
     def __init__(self, data):
         super().__init__()
 
+
         self.data = data
 
         print(self.data)
@@ -168,13 +172,13 @@ class RatingsWindow(QWidget):
         label = QLabel(self)
         label.setText("Show ID:")
         label.move(50, 50)
-        id_display = QLineEdit(f"{self.data[0]}", self)
+        id_display = QLineEdit(f"{self.data[0]}",self)
         id_display.move(120, 50)
 
         label = QLabel("Rating Percent 10:", self)
         label.move(10, 100)
         rating_percent_10 = QLineEdit(self.data[3], self)
-        rating_percent_10.move(120, 100)
+        rating_percent_10.move(120,100)
 
         label = QLabel("Rating Votes 10:", self)
         label.move(230, 100)
@@ -194,7 +198,7 @@ class RatingsWindow(QWidget):
         label = QLabel("Rating Percent 8:", self)
         label.move(10, 200)
         rating_percent_8 = QLineEdit(self.data[7], self)
-        rating_percent_8.move(120, 200)
+        rating_percent_8.move(120,200)
 
         label = QLabel("Rating Votes 8:", self)
         label.move(230, 200)
@@ -214,7 +218,7 @@ class RatingsWindow(QWidget):
         label = QLabel("Rating Percent 6:", self)
         label.move(10, 300)
         rating_percent_6 = QLineEdit(self.data[11], self)
-        rating_percent_6.move(120, 300)
+        rating_percent_6.move(120,300)
 
         label = QLabel("Rating Votes 6:", self)
         label.move(230, 300)
@@ -234,7 +238,7 @@ class RatingsWindow(QWidget):
         label = QLabel("Rating Percent 4:", self)
         label.move(10, 400)
         rating_percent_4 = QLineEdit(self.data[15], self)
-        rating_percent_4.move(120, 400)
+        rating_percent_4.move(120,400)
 
         label = QLabel("Rating Votes 4:", self)
         label.move(230, 400)
@@ -280,10 +284,6 @@ class RatingsWindow(QWidget):
 class DataWindow(QWidget):
     def __init__(self, data):
         super().__init__()
-        self.data_window = None
-        self.top250_tv_button = None
-        self.most_popular_tv_button = None
-        self.most_popular_movies_button = None
         self.data = data
         self.display_list = None
         self.list_control = None
@@ -297,6 +297,7 @@ class DataWindow(QWidget):
         self.setGeometry(800, 200, 800, 500)
 
         self.setup_window()
+
 
     def setup_window(self):
 
@@ -322,12 +323,16 @@ class DataWindow(QWidget):
         self.data_graph_button.move(600, 390)
         self.data_graph_button.clicked.connect(self.open_data_graph_window)
 
+
         self.display_list = QListWidget(self)
         self.display_list.resize(650, 350)
         self.list_control = self.display_list
 
         self.display_tv_data()
         self.set_buttons_for_popular_tv_shows()
+        # self.set_buttons_for_popular_movies()
+
+
 
         self.show()
 
@@ -378,6 +383,8 @@ class DataWindow(QWidget):
         self.sort_by_rank_button.clicked.connect(self.display_tv_data)
         self.sort_by_rankUpDown_button.clicked.connect(self.display_tv_data_sorted_by_rankUpDown)
         self.display_list.currentItemChanged.connect(self.tv_list_item_selected)
+
+
 
     def display_tv_data_sorted_by_rankUpDown(self):
         self.data = self.get_popular_tv_data_sorted_by_rankUpDown()
@@ -465,7 +472,7 @@ class DataWindow(QWidget):
 
         return data
 
-    def movie_list_item_selected(self, current: QListWidgetItem, previous: QListWidgetItem):
+    def movie_list_item_selected(self, current:QListWidgetItem, previous:QListWidgetItem):
         print("Movie")
         print(current.data(0).split("\t")[0])
 
@@ -481,11 +488,13 @@ class DataWindow(QWidget):
         for movie_entry in data:
             if movie_entry[0] == movie_id:
                 entry = movie_entry
-        if entry is not None:
+        if entry != None:
             self.data_window = RatingsWindow(entry)
             self.data_window.show()
 
-    def tv_list_item_selected(self, current: QListWidgetItem, previous: QListWidgetItem):
+
+
+    def tv_list_item_selected(self, current:QListWidgetItem, previous:QListWidgetItem):
         print("TV")
         print(current.data(0).split("\t")[0])
 
@@ -501,26 +510,28 @@ class DataWindow(QWidget):
         for show_entry in data:
             if show_entry[0] == show_id:
                 entry = show_entry
-        if entry is not None:
+        if entry != None:
             self.data_window = RatingsWindow(entry)
             self.data_window.show()
 
+
+
+
+
     def put_tv_data_in_list(self, data):
         for item in data:
-            # for i in range(10):
-            display_text = f"{item[0]}\t\t\t{item[1]}\t\t\t{item[2]}\t\t\t{item[3]}\t\t\t{item[4]}\t\t\t{item[5]}" \
-                           f"\t\t\t{item[6]}"
+        # for i in range(10):
+            display_text = f"{item[0]}\t\t\t{item[1]}\t\t\t{item[2]}\t\t\t{item[3]}\t\t\t{item[4]}\t\t\t{item[5]}\t\t\t{item[6]}"
 
-            QListWidgetItem(display_text, listview=self.list_control)
+            list_item = QListWidgetItem(display_text, listview=self.list_control)
 
         self.show()
 
     def put_movie_data_in_list(self, data):
         for item in data:
-            display_text = f"{item[0]}\t\t\t{item[1]}\t\t\t{item[2]}\t\t\t{item[3]}\t\t\t{item[4]}\t\t\t{item[5]}" \
-                           f"\t\t\t{item[6]}"
+            display_text = f"{item[0]}\t\t\t{item[1]}\t\t\t{item[2]}\t\t\t{item[3]}\t\t\t{item[4]}\t\t\t{item[5]}\t\t\t{item[6]}"
 
-            QListWidgetItem(display_text, listview=self.list_control)
+            list_item = QListWidgetItem(display_text, listview=self.list_control)
 
         self.show()
 
@@ -539,6 +550,10 @@ class StartWindow(QWidget):
         self.setup_window()
         self.data_window = None
 
+    def update_data(self):
+        # os.execl(sys.executable, sys.executable, *sys.argv)
+        pass
+
     def setup_window(self):
         update_data_button = QPushButton("Update Data", self)
         update_data_button.move(200, 400)
@@ -550,18 +565,22 @@ class StartWindow(QWidget):
 
         self.show()
 
-    def update_data(self):
-        os.execl(sys.executable, sys.executable, *sys.argv)
+
 
     def open_data_visualization_window(self):
         self.data_window = DataWindow(1)
         self.data_window.show()
 
-
 def main():
     qt_app = PySide6.QtWidgets.QApplication(sys.argv)  # sys.argv is the list of command line arguments
-    StartWindow()
+    my_window = StartWindow()
 
     plot_data()
 
+
     sys.exit(qt_app.exec())
+
+
+
+
+
