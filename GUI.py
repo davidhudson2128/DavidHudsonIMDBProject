@@ -13,36 +13,144 @@ def open_db(filename: str) -> Tuple[sqlite3.Connection, sqlite3.Cursor]:
     cursor = db_connection.cursor()
     return db_connection, cursor
 
-class RatingsWindow(QWidget):
-    def __init__(self, data):
+def close_db(connection: sqlite3.Connection):
+    connection.commit()
+    connection.close()
+
+class DataVisualizationWindow(QWidget):
+    def __init__(self):
         super().__init__()
         self.setup_window()
 
     def setup_window(self):
-        self.setGeometry(750, 100, 900, 200)
-        self.setWindowTitle("Change in Income over time")
-        self.setGeometry(750, 100, 900, 200)  # put the new window next to the original one wider than it is tall
+        self.setWindowTitle(f"Data Visualization")
+        self.setGeometry(750, 100, 900, 800)  # put the new window next to the original one wider than it is tall
+
+
+class RatingsWindow(QWidget):
+    def __init__(self, data):
+        super().__init__()
+
+
+        self.data = data
+
+        print(self.data)
+
+        self.setup_window()
+
+    def setup_window(self):
+        self.setWindowTitle(f"Show data for show {self.data[0]}")
+        self.setGeometry(750, 100, 900, 800)  # put the new window next to the original one wider than it is tall
         label = QLabel(self)
-        label.setText("State:")
+        label.setText("Show ID:")
         label.move(50, 50)
-        state_display = QLineEdit("data1",self)
-        state_display.move(120, 50)
-        label = QLabel("2018 Income:", self)
-        label.move(50, 100)
-        income2018 = QLineEdit("data2", self)
-        income2018.move(120,100)
-        label = QLabel("2017 Income:", self)
-        label.move(250, 100)
-        income2017 = QLineEdit("data3",self)
-        income2017.move(330,100)
-        label = QLabel("2016 Income:", self)
-        label.move(460, 100)
-        income2017 = QLineEdit("data4", self)
-        income2017.move(540, 100)
-        label = QLabel("2015 Income:", self)
-        label.move(670, 100)
-        income2017 = QLineEdit("data5", self)
-        income2017.move(750, 100)
+        id_display = QLineEdit(f"{self.data[0]}",self)
+        id_display.move(120, 50)
+
+        label = QLabel("Rating Percent 10:", self)
+        label.move(10, 100)
+        rating_percent_10 = QLineEdit(self.data[3], self)
+        rating_percent_10.move(120,100)
+
+        label = QLabel("Rating Votes 10:", self)
+        label.move(230, 100)
+        rating_data_10 = QLineEdit(self.data[4], self)
+        rating_data_10.move(330, 100)
+
+        label = QLabel("Rating Percent 9:", self)
+        label.move(440, 100)
+        rating_percent_9 = QLineEdit(self.data[5], self)
+        rating_percent_9.move(540, 100)
+
+        label = QLabel("Rating Votes 9:", self)
+        label.move(650, 100)
+        rating_data_9 = QLineEdit(self.data[6], self)
+        rating_data_9.move(750, 100)
+
+        label = QLabel("Rating Percent 8:", self)
+        label.move(10, 200)
+        rating_percent_8 = QLineEdit(self.data[7], self)
+        rating_percent_8.move(120,200)
+
+        label = QLabel("Rating Votes 8:", self)
+        label.move(230, 200)
+        rating_data_8 = QLineEdit(self.data[8], self)
+        rating_data_8.move(330, 200)
+
+        label = QLabel("Rating Percent 7:", self)
+        label.move(440, 200)
+        rating_percent_7 = QLineEdit(self.data[9], self)
+        rating_percent_7.move(540, 200)
+
+        label = QLabel("Rating Votes 7:", self)
+        label.move(650, 200)
+        rating_data_7 = QLineEdit(self.data[10], self)
+        rating_data_7.move(750, 200)
+
+        label = QLabel("Rating Percent 6:", self)
+        label.move(10, 300)
+        rating_percent_6 = QLineEdit(self.data[11], self)
+        rating_percent_6.move(120,300)
+
+        label = QLabel("Rating Votes 6:", self)
+        label.move(230, 300)
+        rating_data_6 = QLineEdit(self.data[12], self)
+        rating_data_6.move(330, 300)
+
+        label = QLabel("Rating Percent 5:", self)
+        label.move(440, 300)
+        rating_percent_5 = QLineEdit(self.data[13], self)
+        rating_percent_5.move(540, 300)
+
+        label = QLabel("Rating Votes 5:", self)
+        label.move(650, 300)
+        rating_data_5 = QLineEdit(self.data[14], self)
+        rating_data_5.move(750, 300)
+
+        label = QLabel("Rating Percent 4:", self)
+        label.move(10, 400)
+        rating_percent_4 = QLineEdit(self.data[15], self)
+        rating_percent_4.move(120,400)
+
+        label = QLabel("Rating Votes 4:", self)
+        label.move(230, 400)
+        rating_data_4 = QLineEdit(self.data[16], self)
+        rating_data_4.move(330, 400)
+
+        label = QLabel("Rating Percent 3:", self)
+        label.move(440, 400)
+        rating_percent_3 = QLineEdit(self.data[17], self)
+        rating_percent_3.move(540, 400)
+
+        label = QLabel("Rating Votes 3:", self)
+        label.move(650, 400)
+        rating_data_3 = QLineEdit(self.data[18], self)
+        rating_data_3.move(750, 400)
+
+        label = QLabel("Rating Percent 2:", self)
+        label.move(10, 500)
+        rating_percent_2 = QLineEdit(self.data[19], self)
+        rating_percent_2.move(120, 500)
+
+        label = QLabel("Rating Votes 2:", self)
+        label.move(230, 500)
+        rating_data_2 = QLineEdit(self.data[20], self)
+        rating_data_2.move(330, 500)
+
+        label = QLabel("Rating Percent 1:", self)
+        label.move(440, 500)
+        rating_percent_1 = QLineEdit(self.data[21], self)
+        rating_percent_1.move(540, 500)
+
+        label = QLabel("Rating Votes 1:", self)
+        label.move(650, 500)
+        rating_data_1 = QLineEdit(self.data[22], self)
+        rating_data_1.move(750, 500)
+
+        label = QLabel("Total Rating Votes:", self)
+        label.move(10, 600)
+        total_votes = QLineEdit(self.data[2], self)
+        total_votes.move(120, 600)
 
 
 class DataWindow(QWidget):
@@ -55,6 +163,7 @@ class DataWindow(QWidget):
         self.sort_by_rank_button = None
         self.sort_by_rankUpDown_button = None
         self.sort_by_rank_popular_movies_button = None
+        self.ratings_window = None
         self.setGeometry(800, 200, 800, 500)
 
         self.setup_window()
@@ -185,12 +294,16 @@ class DataWindow(QWidget):
         cursor.execute("""SELECT * FROM MostPopularMovies""")
         data = cursor.fetchall()
 
+        close_db(conn)
+
         return data
 
     def get_top250_tv_data(self):
         conn, cursor = open_db("IMDBDatabase.sqlite")
         cursor.execute("""SELECT * FROM Top250Data""")
         data = cursor.fetchall()
+
+        close_db(conn)
 
         return data
 
@@ -199,6 +312,8 @@ class DataWindow(QWidget):
         cursor.execute("""SELECT * FROM MostPopularShows""")
         data = cursor.fetchall()
 
+        close_db(conn)
+
         return data
 
     def get_popular_movie_data_sorted_by_rankUpDown(self):
@@ -206,6 +321,7 @@ class DataWindow(QWidget):
         cursor.execute("""SELECT * FROM MostPopularMovies ORDER BY rankUpDown DESC""")
         data = cursor.fetchall()
 
+        close_db(conn)
         return data
 
     def get_popular_tv_data_sorted_by_rankUpDown(self):
@@ -213,14 +329,54 @@ class DataWindow(QWidget):
         cursor.execute("""SELECT * FROM MostPopularShows ORDER BY rankUpDown DESC""")
         data = cursor.fetchall()
 
+        close_db(conn)
+
         return data
 
-    def movie_list_item_selected(self):
-        print("TEST")
+    def movie_list_item_selected(self, current:QListWidgetItem, previous:QListWidgetItem):
+        print("Movie")
+        print(current.data(0).split("\t")[0])
+
+        movie_id = current.data(0).split("\t")[0]
+
+        conn, cursor = open_db("IMDBDatabase.sqlite")
+        data = cursor.execute('''SELECT * FROM
+        HighestMoversMovies
+        ''').fetchall()
+        close_db(conn)
+
+        entry = None
+        for movie_entry in data:
+            if movie_entry[0] == movie_id:
+                entry = movie_entry
+        if entry != None:
+            print("CREATE WINDOW")
+
+
 
     def tv_list_item_selected(self, current:QListWidgetItem, previous:QListWidgetItem):
-        #print(current.data(0).split("\t")[0])
-        pass
+        print("TV")
+        print(current.data(0).split("\t")[0])
+
+        show_id = current.data(0).split("\t")[0]
+
+        conn, cursor = open_db("IMDBDatabase.sqlite")
+        data = cursor.execute('''SELECT * FROM
+        UserRatings
+        ''').fetchall()
+        close_db(conn)
+
+        entry = None
+        for show_entry in data:
+            if show_entry[0] == show_id:
+                entry = show_entry
+        if entry != None:
+            self.data_window = RatingsWindow(entry)
+            self.data_window.show()
+
+
+
+
 
     def put_tv_data_in_list(self, data):
         for item in data:
