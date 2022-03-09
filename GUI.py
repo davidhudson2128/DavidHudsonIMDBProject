@@ -27,7 +27,6 @@ def plot_data():
     movie_data = cursor.fetchall()
     rankUpDown_values_movies = []
     number_decreasing_movies = 0
-    pass
     number_increasing_movies = 0
     for entry in movie_data:
         if entry[2] < 0:
@@ -103,7 +102,7 @@ class DataGraphWindow(QWidget):
         id_display.resize(700, 30)
 
     def setup_window(self):
-        self.setWindowTitle(f"Data Visualization")
+        self.setWindowTitle("Data Visualization")
         self.setGeometry(750, 100, 900, 800)
 
     def find_overlapping_shows(self):
@@ -512,7 +511,7 @@ class DataWindow(QWidget):
             display_text = f"{item[0]}\t\t\t{item[1]}\t\t\t{item[2]}\t\t\t{item[3]}\t\t\t{item[4]}\t\t\t{item[5]}" \
                            f"\t\t\t{item[6]}"
 
-            list_item = QListWidgetItem(display_text, listview=self.list_control)
+            QListWidgetItem(display_text, listview=self.list_control)
 
         self.show()
 
@@ -521,7 +520,7 @@ class DataWindow(QWidget):
             display_text = f"{item[0]}\t\t\t{item[1]}\t\t\t{item[2]}\t\t\t{item[3]}\t\t\t{item[4]}\t\t\t{item[5]}" \
                            f"\t\t\t{item[6]}"
 
-            list_item = QListWidgetItem(display_text, listview=self.list_control)
+            QListWidgetItem(display_text, listview=self.list_control)
 
         self.show()
 
@@ -561,7 +560,7 @@ class StartWindow(QWidget):
 
 def main():
     qt_app = PySide6.QtWidgets.QApplication(sys.argv)  # sys.argv is the list of command line arguments
-    my_window = StartWindow()
+    StartWindow()
 
     plot_data()
 

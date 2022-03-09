@@ -166,7 +166,7 @@ def write_data_to_db_most_popular_shows(cursor):
 def write_data_to_db_most_popular_movies(cursor):
     # with open("secrets.py", "r") as secret_file:
     # imdb_api_key = secret_file.read()
-    imdb_api_key = "k_ul3l4k74"
+    # imdb_api_key = "k_ul3l4k74"
 
     # most_popular_movies_request = requests.get(f'https://imdb-api.com/en/API/MostPopularMovies/{imdb_api_key}')
     # most_popular_movies_data = most_popular_movies_request.json().get('items')
@@ -298,8 +298,6 @@ def find_biggest_increases(cursor):
     biggest_increases.append(movies_sorted_by_rankUpDown[0][0])
     biggest_increases.append(movies_sorted_by_rankUpDown[1][0])
     biggest_increases.append(movies_sorted_by_rankUpDown[2][0])
-
-
 
     return biggest_increases
 

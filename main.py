@@ -1,4 +1,4 @@
-import requests
+# import requests
 import json
 # import pprint
 import databases
@@ -11,7 +11,7 @@ import GUI
 def get_top_250_shows():
     # with open("secrets.py", "r") as secret_file:
     # secret_key = secret_file.read()
-    secret_key = "k_ul3l4k74"
+    # secret_key = "k_ul3l4k74"
 
     # top_250_shows_request = requests.get(f"https://imdb-api.com/en/API/Top250TVs/{secret_key}")
     # top_250_shows_json = top_250_shows_request.json()
@@ -42,16 +42,16 @@ def write_top_250_shows_data_to_file(file_name: str, shows_data):
 def write_user_ratings_data_to_file(file_name: str, shows_data):
     # with open("secrets.py", "r") as secret_file:
     # imdb_api_key = secret_file.read()
-    imdb_api_key = "k_ul3l4k74"
+    # imdb_api_key = "k_ul3l4k74"
 
-    show_1_id = shows_data.get('items')[0].get('id')
-    show_50_id = shows_data.get('items')[49].get('id')
-    show_100_id = shows_data.get('items')[99].get('id')
-    show_200_id = shows_data.get('items')[199].get('id')
+    # show_1_id = shows_data.get('items')[0].get('id')
+    # show_50_id = shows_data.get('items')[49].get('id')
+    # show_100_id = shows_data.get('items')[99].get('id')
+    # show_200_id = shows_data.get('items')[199].get('id')
 
     # wheel_of_time_request = requests.get(f'https://imdb-api.com/en/API/SearchTitle/{imdb_api_key}/wheel of time')
     # show_wheel_of_time_id = wheel_of_time_request.json().get('results')[0].get('id')
-    show_wheel_of_time_id = 'tt0331080'
+    # show_wheel_of_time_id = 'tt0331080'
 
     # ratings_data_show_1 = requests.get(f"https://imdb-api.com/en/API/UserRatings/{imdb_api_key}/{show_1_id}").json()
     # ratings_data_show_50 = requests.get(f"https://imdb-api.com/en/API/UserRatings/{imdb_api_key}/{show_50_id}").json()

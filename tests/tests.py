@@ -41,7 +41,7 @@ def test_find_biggest_movers():
                  ('id3', 3, -20, 'test show 3', 'full title', 1924, 'crew'),
                  ('id4', 4, 33, 'test show 4', 'full title', 1924, 'crew'),
                  ('id5', 5, 30, 'test show 5', 'full title', 1924, 'crew')]
-    test_data_cursor.executemany(f'''INSERT INTO MostPopularMovies(id, rank, rankUpDown, title, full_title,
+    test_data_cursor.executemany('''INSERT INTO MostPopularMovies(id, rank, rankUpDown, title, full_title,
                     year, crew)
                      VALUES(?,?,?,?,?,?,?)''', test_data)
 
