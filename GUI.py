@@ -1,10 +1,17 @@
 import sqlite3
 
 import PySide6.QtWidgets
+from PySide6.QtCharts import QLineSeries, QChart, QAbstractSeries, QBarSet, QBarSeries, QBarCategoryAxis, QValueAxis
+from PySide6.QtCore import QPointF
+import PySide6.Qt
+from PySide6.QtGui import Qt
 from PySide6.QtWidgets import QWidget, QPushButton, QListWidget, QApplication, QListWidgetItem, QMessageBox, QLabel, QLineEdit, QTextEdit
 import sys
 import numbers
 from typing import Tuple
+
+import matplotlib.pyplot as plt
+
 
 
 
@@ -17,14 +24,64 @@ def close_db(connection: sqlite3.Connection):
     connection.commit()
     connection.close()
 
-class DataVisualizationWindow(QWidget):
+def plot_data():
+
+    conn, cursor = open_db("IMDBDatabase.sqlite")
+    cursor.execute("""SELECT * FROM MostPopularMovies""")
+    movie_data = cursor.fetchall()
+    rankUpDown_values_movies = []
+    number_decreasing_movies = 0
+    number_increasing_movies = 0
+    for entry in movie_data:
+        if entry[2] < 0:
+            number_decreasing_movies += 1
+        elif entry[2] > 1:
+            number_increasing_movies += 1
+        rankUpDown_values_movies.append(entry[2])
+
+
+    cursor.execute("""SELECT * FROM MostPopularShows""")
+    tv_data = cursor.fetchall()
+    close_db(conn)
+    rankUpDown_values_tv = []
+    number_decreasing_shows = 0
+    number_increasing_shows = 0
+    for entry in tv_data:
+        if entry[2] < 0:
+            number_decreasing_shows += 1
+        elif entry[2] > 1:
+            number_increasing_shows += 1
+        if entry[2] <= 9000:
+            rankUpDown_values_tv.append(entry[2])
+
+    fig, axs = plt.subplots(2)
+
+    axs[0].set_title("Most Popular Shows Movement")
+    axs[0].hist(rankUpDown_values_tv, bins=60)
+    axs[0].text(max(rankUpDown_values_tv)/2, 20, f"Number decreasing: {number_decreasing_shows}", fontsize=14)
+    axs[0].text(max(rankUpDown_values_tv)/2, 35, f"Number increasing: {number_increasing_shows}", fontsize=14)
+    axs[1].set_title("Most Popular Movies Movement")
+    axs[1].hist(rankUpDown_values_movies, bins=60)
+    axs[1].text(max(rankUpDown_values_movies) / 2, 20, f"Number decreasing: {number_decreasing_movies}", fontsize=14)
+    axs[1].text(max(rankUpDown_values_movies)/2, 35, f"Number increasing: {number_increasing_movies}", fontsize=14)
+    plt.show()
+
+
+
+
+
+
+
+class DataGraphWindow(QWidget):
     def __init__(self):
         super().__init__()
         self.setup_window()
 
     def setup_window(self):
         self.setWindowTitle(f"Data Visualization")
-        self.setGeometry(750, 100, 900, 800)  # put the new window next to the original one wider than it is tall
+        self.setGeometry(750, 100, 900, 800)
+
+
 
 
 class RatingsWindow(QWidget):
@@ -164,6 +221,8 @@ class DataWindow(QWidget):
         self.sort_by_rankUpDown_button = None
         self.sort_by_rank_popular_movies_button = None
         self.ratings_window = None
+        self.data_graph_window = None
+        self.data_graph_button = None
         self.setGeometry(800, 200, 800, 500)
 
         self.setup_window()
@@ -189,6 +248,11 @@ class DataWindow(QWidget):
         self.top250_tv_button.move(33, 370)
         self.top250_tv_button.clicked.connect(self.change_to_top250_tv_shows)
 
+        self.data_graph_button = QPushButton("Data Visualization", self)
+        self.data_graph_button.move(600, 390)
+        self.data_graph_button.clicked.connect(self.open_data_graph_window)
+
+
         self.display_list = QListWidget(self)
         self.display_list.resize(650, 350)
         self.list_control = self.display_list
@@ -200,6 +264,10 @@ class DataWindow(QWidget):
 
 
         self.show()
+
+    def open_data_graph_window(self):
+        self.data_graph_window = DataGraphWindow()
+        self.data_graph_window.show()
 
     def change_to_top250_tv_shows(self):
         self.set_buttons_for_top250_shows()
@@ -350,7 +418,8 @@ class DataWindow(QWidget):
             if movie_entry[0] == movie_id:
                 entry = movie_entry
         if entry != None:
-            print("CREATE WINDOW")
+            self.data_window = RatingsWindow(entry)
+            self.data_window.show()
 
 
 
@@ -431,7 +500,13 @@ class StartWindow(QWidget):
 
 qt_app = PySide6.QtWidgets.QApplication(sys.argv)  # sys.argv is the list of command line arguments
 my_window = StartWindow()
+
+plot_data()
+
+
 sys.exit(qt_app.exec())
+
+
 
 
 
