@@ -137,16 +137,16 @@ def create_db_columns_most_highest_movers_movies(cursor):
 def write_data_to_db_most_popular_shows(cursor):
     # with open("secrets.py", "r") as secret_file:
     #     imdb_api_key = secret_file.read()
-    # imdb_api_key = "k_ul3l4k74"
+    imdb_api_key = "k_ul3l4k74"
 
-    # most_popular_shows_request = requests.get(f'https://imdb-api.com/en/API/MostPopularTVs/{imdb_api_key}')
-    # most_popular_shows_data = most_popular_shows_request.json().get('items')
+    most_popular_shows_request = requests.get(f'https://imdb-api.com/en/API/MostPopularTVs/{imdb_api_key}')
+    most_popular_shows_data = most_popular_shows_request.json().get('items')
     #
     # with open("json data/most_popular_shows.json", "w") as file:
     #     file.write(json.dumps(most_popular_shows_data))
     # read data from file
-    with open("json data/most_popular_shows.json", "r") as file:
-        most_popular_shows_data = json.load(file)
+    # with open("json data/most_popular_shows.json", "r") as file:
+    #     most_popular_shows_data = json.load(file)
 
     for show in most_popular_shows_data:
         # print(show)
@@ -166,16 +166,16 @@ def write_data_to_db_most_popular_shows(cursor):
 def write_data_to_db_most_popular_movies(cursor):
     # with open("secrets.py", "r") as secret_file:
     # imdb_api_key = secret_file.read()
-    # imdb_api_key = "k_ul3l4k74"
+    imdb_api_key = "k_ul3l4k74"
 
-    # most_popular_movies_request = requests.get(f'https://imdb-api.com/en/API/MostPopularMovies/{imdb_api_key}')
-    # most_popular_movies_data = most_popular_movies_request.json().get('items')
+    most_popular_movies_request = requests.get(f'https://imdb-api.com/en/API/MostPopularMovies/{imdb_api_key}')
+    most_popular_movies_data = most_popular_movies_request.json().get('items')
     #
     # with open("json data/most_popular_movies.json", "w") as file:
     #     file.write(json.dumps(most_popular_movies_data))
     # read data from file
-    with open("json data/most_popular_movies.json", "r") as file:
-        most_popular_movies_data = json.load(file)
+    # with open("json data/most_popular_movies.json", "r") as file:
+    #     most_popular_movies_data = json.load(file)
 
     for movie in most_popular_movies_data:
         # print(show)
@@ -195,15 +195,15 @@ def write_data_to_db_most_popular_movies(cursor):
 def write_data_to_db_top250_movies(cursor):
     # with open("secrets.py", "r") as secret_file:
     #     imdb_api_key = secret_file.read()
-    # imdb_api_key = "k_ul3l4k74"
-    # top_250_movies_request = requests.get(f'https://imdb-api.com/en/API/Top250Movies/{imdb_api_key}')
-    # top_250_movies_data = top_250_movies_request.json().get('items')
+    imdb_api_key = "k_ul3l4k74"
+    top_250_movies_request = requests.get(f'https://imdb-api.com/en/API/Top250Movies/{imdb_api_key}')
+    top_250_movies_data = top_250_movies_request.json().get('items')
     #
     # with open("json data/top_250_movies.json", "w") as file:
     #     file.write(json.dumps(top_250_movies_data))
     # read data from file
-    with open("json data/top_250_movies.json", "r") as file:
-        top_250_movies_data = json.load(file)
+    # with open("json data/top_250_movies.json", "r") as file:
+    #     top_250_movies_data = json.load(file)
 
     for movie in top_250_movies_data:
         cursor.execute(f'''INSERT INTO Top250MoviesData(id, title, full_title,
@@ -243,28 +243,12 @@ def write_data_to_db_top250_shows(curser, top_250_shows_data):
     # with open('wheel_of_time_data.json', 'r') as file:
     #     wheel_of_time_data = json.load(file)
 
-    # print(wheel_of_time_data)
-
     # Add Wheel of Time to db
 
     curser.execute("""INSERT INTO Top250Data(id, title, full_title,
                  year, crew, imdb_rating, imdb_rating_count)
         VALUES('tt7462410','The Wheel of Time','The Wheel of Time (TV Series 2021– )',2021,'Rosamund Pike, Daniel Henney',
         7.2,85286)""")
-
-#     curser.execute(f'''INSERT INTO Top250Data(id, title, full_title,
-#                 year, crew, imdb_rating, imdb_rating_count)
-#                  VALUES ('{top_250_shows_data.get('items')[show_index].get('id')}', '{top_250_shows_data.get('items')
-#                  [show_index].get('title')}', '{top_250_shows_data.get('items')[show_index].get('fullTitle')}',
-#                  '{top_250_shows_data.get('items')[show_index].get('year')}',
-#                  '{top_250_shows_data.get('items')[show_index].get('crew')}',
-#                  '{top_250_shows_data.get('items')[show_index].get('imDbRating')}',
-#                  '{top_250_shows_data.get('items')[show_index].get('imDbRatingCount')}')''')
-# )
-
-# Primary key not unique
-# except sqlite3.IntegrityError:
-#     print("b")
 
 
 def write_data_to_db_user_ratings(cursor, ratings_data):
