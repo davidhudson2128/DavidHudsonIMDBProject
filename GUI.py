@@ -27,6 +27,7 @@ def plot_data():
     movie_data = cursor.fetchall()
     rankUpDown_values_movies = []
     number_decreasing_movies = 0
+    pass
     number_increasing_movies = 0
     for entry in movie_data:
         if entry[2] < 0:
