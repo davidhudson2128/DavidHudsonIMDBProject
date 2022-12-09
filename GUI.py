@@ -531,9 +531,9 @@ class DataWindow(QWidget):
 class StartWindow(QWidget):
     def __init__(self):
         super().__init__()
+        self.data_window = None
         self.setGeometry(800, 200, 800, 500)
         self.setup_window()
-        self.data_window = None
 
     def update_data(self):
         # os.execl(sys.executable, sys.executable, *sys.argv)
@@ -561,4 +561,4 @@ def main():
 
     plot_data()
 
-    sys.exit(qt_app.exec())
+    sys.exit(qt_app.exec_())
