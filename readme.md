@@ -12,3 +12,5 @@ Database Layout:
 The top_250_shows_db contains info about a few specific shows. The information columns are the show's the id, title, full title, year, crew, imdb rating, and imdbrating count.
 The user_ratings_db contains info about shows' rating, with the columns including number of votes and percent for each rating.
 The imdbId field in the user_ratings_db is foreign keyed to the top_250_shows_db id field
+
+An IMDB API key is required to make full use of this project. Many of the API requests are cached in DavidHudsonIMDBProject/json data/ but not the data for the "highest movers" for movies.
