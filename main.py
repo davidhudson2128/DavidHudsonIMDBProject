@@ -1,8 +1,9 @@
-import requests
+# import requests
 import json
 # import pprint
 import databases
 import GUI
+
 
 def get_top_250_shows():
     # with open("secrets.py", "r") as secret_file:
