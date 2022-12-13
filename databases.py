@@ -1,9 +1,7 @@
 import sqlite3
 import json
 from typing import Tuple
-
-
-import requests
+# import requests
 
 
 def open_db(filename: str) -> Tuple[sqlite3.Connection, sqlite3.Cursor]:
@@ -292,8 +290,8 @@ def find_biggest_decreases(cursor):
 
 
 def write_data_to_db_highest_movers_movies(cursor):
-    biggest_increases = find_biggest_increases(cursor)
-    biggest_decreases = find_biggest_decreases(cursor)
+    # biggest_increases = find_biggest_increases(cursor)
+    # biggest_decreases = find_biggest_decreases(cursor)
 
     # imdb_api_key = "YOUR API KEY"
 
